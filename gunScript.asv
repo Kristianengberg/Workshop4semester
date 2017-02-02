@@ -1,0 +1,16 @@
+filename = 'gunshot.wav';
+midicontrolsObject = midicontrols
+midiread(midicontrolsObject)
+[y,Fs] = audioread('gunshot.wav');
+
+sound(y,Fs);
+
+
+while(midiread)
+    i = midiread;
+    switch i
+        case 1
+        print('hello')
+    end
+end
+        
