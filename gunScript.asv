@@ -1,16 +1,20 @@
-filename = 'gunshot.wav';
-midicontrolsObject = midicontrols
-midiread(midicontrolsObject)
-[y,Fs] = audioread('gunshot.wav');
-
-sound(y,Fs);
+filename = 'gunshot.wav'
+[y,Fs] = audioread('gunshot.wav')
 
 
-while(midiread)
-    i = midiread;
-    switch i
-        case 1
-        print('hello')
+while(true)
+    
+    midiread(h)
+    switch h
+    case 0
+    sound(y,Fs)
     end
+    
+
+        
+
 end
+
+
+
         
