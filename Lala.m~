@@ -1,0 +1,38 @@
+frameLength = 256; 
+miss = dsp.AudioFileReader('gunshot.wav', 'SamplesPerFrame', frameLength);
+%hit = dsp.AudioFileReader('gunshot.wav', 'SamplesPerFrame', frameLength);
+missD = audioDeviceWriter('SampleRate', miss.SampleRate); 
+%hitD = audioDeviceWriter('SampleRate', hit.SampleRate); 
+
+while(true)
+
+switch midiid
+
+    case 3001 % hit light & button
+     %reset(fileReader)
+
+     while ~isDone (miss)
+     signal = miss(); 
+     hitD(signal);
+     end
+     
+    case 9001 % miss no light but button
+    % reset(fileReader)
+
+     while ~isDone (miss)
+     signal = miss(); 
+     missD(signal);
+     
+     end
+end
+end
+
+release(hit);
+release(miss);
+release(hitD); 
+release(missD); 
+
+
+
+    
+

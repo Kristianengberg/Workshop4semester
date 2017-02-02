@@ -4,9 +4,8 @@ filename = 'gunshot.wav'
 
 while(true)
     
-    midiread(h)
-    switch h
-    case 0
+    switch midiid
+    case 9003
     sound(y,Fs)
     end
     
