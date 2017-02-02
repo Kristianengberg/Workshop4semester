@@ -1,0 +1,10 @@
+classdef Gun < audioPlugin
+   
+    properties
+        sampleRate = 256
+miss = dsp.AudioFileReader('gunshot.wav','SamplesPerFrame',sampleRate); 
+deviceWriter = audioDeviceWriter('SampleRate', fileReader.SampleRate); 
+
+    end
+while(tr)
+end 
