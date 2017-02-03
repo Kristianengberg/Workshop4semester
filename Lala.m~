@@ -1,8 +1,9 @@
 frameLength = 256; 
-miss = dsp.AudioFileReader('gunshot.wav', 'SamplesPerFrame', frameLength);
-%hit = dsp.AudioFileReader('gunshot.wav', 'SamplesPerFrame', frameLength);
-missD = audioDeviceWriter('SampleRate', miss.SampleRate); 
-%hitD = audioDeviceWriter('SampleRate', hit.SampleRate); 
+miss = dsp.AudioFileReader('Gun.wav', 'SamplesPerFrame', frameLength);
+targetright = dsp.AudioFileReader('zombiesound.wav', 'SamplesPerFrame', frameLength);
+targetleft = dsp.AudioFileReader('zombiesound.wav', 'SamplesPerFrame', frameLength);
+hit = dsp.AudioFileReader('Both.wav', 'SamplesPerFrame', frameLength);
+deviceWriter = audioDeviceWriter('SampleRate', miss.SampleRate); 
 
 while(true)
 
@@ -11,26 +12,43 @@ switch midiid
     case 3001 % hit light & button
      %reset(fileReader)
 
-     while ~isDone (miss)
-     signal = miss(); 
-     hitD(signal);
+     while ~isDone (hit)
+     signal = hit();      
+     deviceWriter(signal); 
      end
      
     case 9001 % miss no light but button
-    % reset(fileReader)
-
+   
      while ~isDone (miss)
      signal = miss(); 
-     missD(signal);
-     
-     end
-end
-end
+     deviceWriter(signal);
 
-release(hit);
+     end
+     
+      case 3003 % target Right
+          while ~isDone (targetright)
+     rightsignal = targetright(); 
+     deviceWriter(rightsignal[(:,1)]); 
+          end
+          
+      case 4004 % Target Left
+      while ~isDone (targetleft)
+     leftsignal = targetleft();
+     %signal = signal(:,1); 
+     deviceWriter(leftsignal(:,1));
+      end
+    
+end
+release(deviceWriter); 
 release(miss);
-release(hitD); 
-release(missD); 
+release(hit);
+release(targetleft);
+release(targetright);
+end 
+
+
+
+
 
 
 
